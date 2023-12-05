@@ -1,19 +1,20 @@
-//importing modules
+// importing modules
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mysql = require("mysql");
+const path = require("path");
 
 const app = express();
 const port = 8000;
 
-//EJS setup
+// EJS setup
 app.set("view engine", "ejs");
 
-//Middleware
+// Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Configurating MySQL database connection
+// Configuring MySQL database connection
 const db = mysql.createConnection({
   host: "localhost",
   user: "fleurs",
@@ -21,21 +22,27 @@ const db = mysql.createConnection({
   database: "fleurderev",
 });
 
-//Connecting to database
+// Connecting to the database
 db.connect((err) => {
   if (err) {
     throw err;
   }
-  console.log("Connected to database");
+  console.log("Connected to the database");
 });
 global.db = db;
 
-//css
-app.use(express.static(__dirname + "/public"));
+// CSS
+app.use(express.static(path.join(__dirname, "public")));
 
-//creating a route
+// Setting up directory
+app.set("views", __dirname + "/views");
+
+app.set("view engine", "ejs");
+app.engine("html", ejs.renderFile);
+
+// Creating a route
 app.get("/", (req, res) => {
-  res.send("Fleur De Réverie!");
+  res.render("index");
 });
 
 // Start the server
