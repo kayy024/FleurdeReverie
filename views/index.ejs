@@ -3,27 +3,67 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fleur De Réverie</title>
-    <link rel="stylesheet" type="text/css" href="main.css" />
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <title>Fleur De R&eacute;verie</title>
   </head>
+
   <body>
     <header>
-      <h1><center>FLEUR DE R&Eacute;VIERE</center></h1>
-      <nav>
-        <div class="navbar">
-          <ul>
-            <li><a href="/">HOME</a></li>
-            <li><a href="/catalog">PRODUCT CATALOG</a></li>
-            <li><a href="/cart">SHOPPING CART</a></li>
-            <li><a href="/checkout">CHECKOUT</a></li>
-            <li><a href="/loyalty">LOYALTY PROGRAM</a></li>
-          </ul>
-        </div>
-      </nav>
+      <h1>Fleur De R&eacute;verie</h1>
+      <navbar>
+        <ul>
+          <li><a href="/">Home</a></li>
+
+          <li><a href="/flowers">All Flowers</a></li>
+
+          <!-- Dropdown menu for occasions -->
+          <li class="dropdown">
+            <a href="#" class="dropbtn">Occasions</a>
+            <div class="dropdown-content">
+              <a href="/occasions?occasion=birthday">Birthday</a>
+              <a href="/occasions?occasion=anniversary">Anniversary</a>
+              <a href="/occasions?occasion=wedding">Wedding</a>
+              <a href="/occasions?occasion=thankyou">Thank You</a>
+            </div>
+          </li>
+          <!-- Basket Button -->
+          <div class="basket-content">
+            <a href="/basket">
+              <img
+                id="basketImage"
+                src="/images/basket.png"
+                alt="basket"
+                width="30px"
+              />
+            </a>
+          </div>
+
+          <!-- Account button with dropdown -->
+          <li class="dropdown">
+            <div class="dropdown-icon">
+              <img src="/images/account.png" alt="icon" width="30px" />
+            </div>
+            <div class="dropdown-content" id="myDropdown">
+              <a href="/login"
+                ><img src="/images/account.png" alt="Account" /> Log In</a
+              >
+              <a href="/register"
+                ><img src="/images/account.png" alt="Account" /> Register</a
+              >
+              <a href="/subscription"
+                ><img src="/images/account.png" alt="Account" /> Subscription</a
+              >
+            </div>
+          </li>
+        </ul>
+      </navbar>
     </header>
-    <main>
-      <h1>Welcome to Fleur De R&eacute;verie!</h1>
-      <p>Current Stock</p>
-    </main>
+
+    <main><%- body %></main>
+
+    <footer>
+      <p>&copy; 2023 Fleur de R&eacute;viere</p>
+    </footer>
+    <script src="/js/client.js"></script>
   </body>
 </html>

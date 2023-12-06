@@ -10,6 +10,8 @@ const port = 8000;
 
 // EJS setup
 app.set("view engine", "ejs");
+app.set("views", __dirname + "/views");
+app.engine("html", ejs.renderFile);
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -31,21 +33,13 @@ db.connect((err) => {
 });
 global.db = db;
 
-// CSS
-app.use(express.static(path.join(__dirname, "public")));
-
-// Setting up directory
-app.set("views", __dirname + "/views");
-
-app.set("view engine", "ejs");
-app.engine("html", ejs.renderFile);
-
-// Creating a route
-app.get("/", (req, res) => {
-  res.render("index");
-});
-
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
+
+// CSS
+app.use(express.static(path.join(__dirname, "public")));
+
+//Route Files
+require("./routes/main")(app);
