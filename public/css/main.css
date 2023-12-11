@@ -1,5 +1,5 @@
 body {
-  background-color: black;
+  background-color: #ffffff;
   color: white;
   font-family: Arial, sans-serif;
   margin: 0;
@@ -7,7 +7,7 @@ body {
 }
 
 header {
-  background-color: #292929;
+  background-color: #d4d0c5;
   padding: 10px;
   font-family: "arial";
   font-size: 16px;
@@ -59,7 +59,7 @@ navbar a:hover {
 }
 
 .dropdown-content a:hover {
-  background-color: #f1f1f1;
+  background-color: #d4d0c5;
 }
 
 .dropdown:hover .dropdown-content {
@@ -80,7 +80,7 @@ navbar a:hover {
 }
 
 footer {
-  background-color: #f2f2f2;
+  background-color: #d4d0c5;
   text-align: center;
   padding: 10px;
 }

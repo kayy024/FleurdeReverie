@@ -5,31 +5,31 @@ module.exports = function (app) {
   });
 
   app.get("/flowers", (req, res) => {
-    res.render("flowers", {});
+    res.render("flowers.ejs", {});
   });
 
   app.get("/occasions", (req, res) => {
     const selectedOccasion = req.query.occasion || null;
-    res.render("occasions", { selectedOccasion });
+    res.render("occasions.ejs", { selectedOccasion });
   });
 
-  app.get("/cart", (req, res) => {
-    res.render("cart", {});
+  app.get("/basket", (req, res) => {
+    res.render("basket.ejs", {});
   });
 
   app.get("/login", (req, res) => {
-    res.render("login", {});
+    res.render("login.ejs", {});
   });
 
   app.get("/register", (req, res) => {
-    res.render("register", {});
+    res.render("register.ejs", {});
   });
 
   app.get("/logout", (req, res) => {
     res.redirect("/");
   });
 
-  app.get("/subscription", (req, res) => {
+  app.get("/subscription.ejs", (req, res) => {
     res.render("subscription", {});
   });
 
