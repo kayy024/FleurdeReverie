@@ -5,7 +5,16 @@ module.exports = function (app) {
   });
 
   app.get("/flowers", (req, res) => {
-    res.render("flowers.ejs", {});
+    db.query("SELECT * FROM products", (error, results) => {
+      if (error) {
+        console.error("Error fetching products from the database:", error);
+        return res.status(500).send("Internal Server Error");
+      }
+
+      const products = results;
+
+      res.render("flowers.ejs", { products });
+    });
   });
 
   app.get("/occasions", (req, res) => {
