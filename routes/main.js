@@ -1,11 +1,12 @@
+const app = require("../index");
+
 module.exports = function (app) {
-  // Handle the routes
-  app.get("/", (req, res) => {
-    res.render("index", { body: "Welcome to Fleur de Réviere" });
+  app.get("/", function (req, res) {
+    res.render("index.ejs", { user: req.session.user });
   });
 
-  app.get("/flowers", (req, res) => {
-    db.query("SELECT * FROM products", (error, results) => {
+  app.get("/flowers", function (req, res) {
+    db.query("SELECT * FROM products", function (error, results) {
       if (error) {
         console.error("Error fetching products from the database:", error);
         return res.status(500).send("Internal Server Error");
@@ -17,33 +18,49 @@ module.exports = function (app) {
     });
   });
 
-  app.get("/occasions", (req, res) => {
+  app.get("/occasions", function (req, res) {
     const selectedOccasion = req.query.occasion || null;
     res.render("occasions.ejs", { selectedOccasion });
   });
 
-  app.get("/basket", (req, res) => {
+  app.get("/basket", function (req, res) {
     res.render("basket.ejs", {});
   });
 
-  app.get("/login", (req, res) => {
+  app.get("/login", function (req, res) {
     res.render("login.ejs", {});
   });
 
-  app.get("/register", (req, res) => {
+  app.get("/register", function (req, res) {
     res.render("register.ejs", {});
   });
 
-  app.get("/logout", (req, res) => {
+  app.get("/logout", function (req, res) {
     res.redirect("/");
   });
 
-  app.get("/subscription.ejs", (req, res) => {
+  app.get("/account", function (req, res) {
+    res.render("account.ejs", {});
+  });
+
+  app.get("/subscription", function (req, res) {
     res.render("subscription", {});
   });
 
   // Client-side JavaScript logic
-  app.get("/basket", (req, res) => {
+  function redirectToBasket() {
+    window.location.href = "/basket";
+  }
+
+  app.get("/basket", function (req, res) {
     res.render("index", { body: "Welcome to Fleur de Réviere" });
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    var basketImage = document.getElementById("basketImage");
+
+    if (basketImage) {
+      basketImage.addEventListener("click", redirectToBasket);
+    }
   });
 };
