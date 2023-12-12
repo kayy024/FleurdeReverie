@@ -1,5 +1,24 @@
+CREATE DATABASE fleurderev;
+
 # Select the database
 USE fleurderev;
+
+# Create the user which the web app will use to access the database
+DROP USER IF EXISTS 'fleurs'@'localhost';
+CREATE USER ‘fleurs’@‘localhost’ IDENTIFIED BY ‘flower2029’;
+GRANT ALL PRIVILEGES ON fleurderev.* TO ‘fleurs’@‘localhost’;
+
+#Remove tables if they exist already
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS products;
+
+CREATE TABLE users (
+  firstname VARCHAR(20) NOT NULL,
+  surname VARCHAR(20) NOT NULL,
+  email VARCHAR(100),
+  password VARCHAR(100),
+  PRIMARY KEY(username)
+);
 
 CREATE TABLE products (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -7,16 +26,3 @@ CREATE TABLE products (
     image VARCHAR(255),
     price DECIMAL(10, 2)
 );
-
-INSERT INTO products (name, image, price) VALUES
-    ('Lavender Lilac Bouquet', 'flower1.jpg', 20.00),
-    ('Pretty Poinsettia Bouquet', 'flower2.JPEG', 15.99),
-    ('Dream Galore Bouquet ', 'flower3.jpeg', 32.50),
-    ('Loving You Bouquet ', 'flower4.jpeg', 25.99),
-    ('Belle Rosy Bouquet ', 'flower5.jpeg', 30.00),
-    ('Pretty Pink Rose Bouquet', 'flower6.jpeg', 27.99),
-    ('Classic Elegant Bouquet', 'flower7.jpeg', 30.99),
-    ('Valentines Perfect Bouquet', 'flower8.jpeg', 35.00),
-    ('Festival Florence Bouquet', 'flower9.jpeg', 28.00),
-
-

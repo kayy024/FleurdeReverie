@@ -1,21 +1,22 @@
 // importing modules
-const express = require("express");
-const bodyParser = require("body-parser");
-const ejs = require("ejs");
-const mysql = require("mysql");
-const path = require("path");
+var express = require("express");
+var bodyParser = require("body-parser");
+var ejs = require("ejs");
 
 const app = express();
 const port = 8000;
-
-// EJS setup
-app.set("view engine", "ejs");
-app.set("views", __dirname + "/views");
-app.engine("html", ejs.renderFile);
-
-// Middleware
+const mysql = require("mysql");
+const session = require("express-session");
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Middleware
+app.use(
+  session({
+    secret: "your-secret-key",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 // Configuring MySQL database connection
 const db = mysql.createConnection({
   host: "localhost",
@@ -23,7 +24,6 @@ const db = mysql.createConnection({
   password: "flower2029",
   database: "fleurderev",
 });
-
 // Connecting to the database
 db.connect((err) => {
   if (err) {
@@ -32,14 +32,20 @@ db.connect((err) => {
   console.log("Connected to the database");
 });
 global.db = db;
+// CSS
+app.use(express.static(path.join(__dirname, "public")));
+// EJS setup
+app.set("views", __dirname + "/views");
+
+app.set("view engine", "ejs");
+
+app.engine("html", ejs.renderFile);
+
+//Route Files
+require("./routes/main")(app);
 
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
-
-// CSS
-app.use(express.static(path.join(__dirname, "public")));
-
-//Route Files
-require("./routes/main")(app);
+module.exports = app;
