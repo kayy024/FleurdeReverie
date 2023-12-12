@@ -84,3 +84,41 @@ footer {
   text-align: center;
   padding: 10px;
 }
+
+/* flowers page */
+.productlist {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.product {
+  width: 25%;
+  border: 1px solid #d66fb2;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.product img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+.productname {
+  font-size: 15px;
+  margin: 0;
+  color: #d66fb2;
+}
+
+.pdescription {
+  margin: 10px 0;
+  color: #d4d0c5;
+}
+
+.price {
+  margin: 0;
+}
