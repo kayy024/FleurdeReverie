@@ -12,6 +12,10 @@ header {
   font-family: "arial";
   font-size: 16px;
   text-align: center;
+  background-image: url("/images/loginbg.png");
+  background-size: cover;
+  background-position: center;
+  height: 20vh;
 }
 .navbar {
   display: flex;
@@ -32,6 +36,11 @@ navbar a {
 
 navbar a:hover {
   color: #d66fb2;
+}
+
+h2 {
+  color: #d66fb2;
+  font-size: 22px;
 }
 
 .dropdown {
@@ -83,6 +92,154 @@ footer {
   background-color: #d4d0c5;
   text-align: center;
   padding: 10px;
+  background-image: url("/images/loginbg.png");
+  background-size: cover;
+  background-position: center;
+  height: 20vh;
+}
+
+footer p {
+  color: white;
+}
+
+/* login page */
+section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  font-family: "Kalnia", serif;
+}
+
+.loginpage {
+  max-width: 400px;
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #d4d0c5;
+  border-radius: 5px;
+  text-align: center;
+}
+
+form {
+  flex-direction: column;
+  display: flex;
+}
+
+label {
+  margin-top: 15px;
+  margin-bottom: 10px;
+  text-align: left;
+  color: #d66fb2;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #d4d0c5;
+  box-sizing: border-box;
+  border-radius: 2px;
+}
+
+button {
+  background-color: #d66fb2;
+  color: black;
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: "Kalnia", serif;
+}
+
+button:hover {
+  background-color: #dbbad0;
+}
+
+p {
+  margin-top: 10px;
+  color: #d66fb2;
+}
+
+a {
+  color: #d66fb2;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #dbbad0;
+}
+
+/* registration page */
+.signbg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 110vh;
+  font-family: "Kalnia", serif;
+}
+
+.signup-box {
+  max-width: 500px;
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #d4d0c5;
+  border-radius: 5px;
+  text-align: center;
+}
+
+form {
+  flex-direction: column;
+  display: flex;
+}
+
+h2 {
+  color: #d66fb2;
+}
+
+label {
+  margin-top: 15px;
+  margin-bottom: 10px;
+  text-align: left;
+  color: #d66fb2;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #d4d0c5;
+  box-sizing: border-box;
+  border-radius: 2px;
+}
+
+button {
+  background-color: #d66fb2;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: "Kalnia", serif;
+}
+
+button:hover {
+  background-color: #dbbad0;
+}
+
+p {
+  margin-top: 10px;
+  color: #d66fb2;
+}
+
+a {
+  color: #d66fb2;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #dbbad0;
 }
 
 /* flowers page */
