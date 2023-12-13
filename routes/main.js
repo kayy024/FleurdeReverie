@@ -23,7 +23,20 @@ module.exports = function (app) {
 
   app.get("/occasions", function (req, res) {
     const selectedOccasion = req.query.occasion || null;
-    res.render("occasions.ejs", { selectedOccasion });
+
+    if (!selectedOccasion) {
+      res.render("occasions.ejs", { selectedOccasion });
+      return;
+    }
+    const query = "SELECT * FROM products WHERE occasion = ?";
+    db.query(query, [selectedOccasion], (err, results) => {
+      if (err) {
+        console.error("Error executing SQL query:", err);
+        res.status(500).send("Internal Server Error");
+        return;
+      }
+      res.render("occasions.ejs", { selectedOccasion, products: results });
+    });
   });
 
   app.get("/basket", function (req, res) {
