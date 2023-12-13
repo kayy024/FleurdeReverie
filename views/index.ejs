@@ -52,11 +52,159 @@
       </navbar>
     </header>
 
-    <main></main>
+    <main>
+      <!-- slideshow -->
+      <div class="slideshow">
+        <div class="slides">
+          <img src="/images/slideshow1.jpeg" alt="Slide 1" />
+        </div>
+        <div class="slides">
+          <img src="/images/slideshow2.jpeg" alt="Slide 2" />
+        </div>
+        <div class="slides">
+          <img src="/images/slideshow3.jpeg" alt="Slide 3" />
+        </div>
+        <div style="text-align: center">
+          <span class="dot" onclick="currentSlide(1)"></span>
+          <span class="dot" onclick="currentSlide(2)"></span>
+          <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+      </div>
+
+      <h2>Popular Products</h2>
+      <div class="popularproducts">
+        <div class="product" id="product1">
+          <img src="/images/flower3.jpeg" alt="product1" />
+          <div class="product-info">
+            <h3>Dream Galore Bouquet</h3>
+            <p>Price: £32.50</p>
+            <button onclick="addToBasket('product1')">Add to Basket</button>
+          </div>
+        </div>
+
+        <div class="product" id="product2">
+          <img src="/images/flower7.jpeg" alt="product2" />
+          <div class="product-info">
+            <h3>Classic Elegant Bouquet</h3>
+            <p>Price: £30.99</p>
+            <button onclick="addToBasket('product2')">Add to Basket</button>
+          </div>
+        </div>
+
+        <div class="product" id="product3">
+          <img src="/images/flower2.JPEG" alt="product3" />
+          <div class="product-info">
+            <h3>Pretty Poinsettia Bouquet</h3>
+            <p>Price: £15.99</p>
+            <button onclick="addToBasket('product3')">Add to Basket</button>
+          </div>
+        </div>
+      </div>
+
+      <h2>Shop by Occasion</h2>
+      <div class="occasions">
+        <h3>Anniversary</h3>
+        <p>
+          Indulge your special day with one of our gorgeous anniversary flower
+          bouquets.
+        </p>
+        <button
+          type="occassionbutton"
+          onclick="window.location.href='/occasions?occasion=anniversary'"
+        >
+          SHOP NOW
+        </button>
+
+        <h3>Birthday</h3>
+        <p>Looking for the best birthday flowers?</p>
+        <button
+          type="occassionbutton"
+          onclick="window.location.href='/occasions?occasion=birthday'"
+        >
+          SHOP NOW
+        </button>
+
+        <h3>Wedding</h3>
+        <p>
+          Add a touch of elegance to your wedding bouquet with our beautiful
+          wedding flower collection.
+        </p>
+        <button
+          type="occassionbutton"
+          onclick="window.location.href='/occasions?occasion=wedding'"
+        >
+          SHOP NOW
+        </button>
+
+        <h3>Thank You</h3>
+        <p>
+          Show your appreciation with our beautiful bouquet of thank you
+          flowers!
+        </p>
+        <button
+          type="occassionbutton"
+          onclick="window.location.href='/occasions?occasion=thankyou'"
+        >
+          SHOP NOW
+        </button>
+      </div>
+
+      <form action="/subscribe" method="post">
+        <h2>Sign Up To Our Newsletter</h2>
+        <center>
+          <p>
+            Sign up to recieve emails from Fleur De R&eacute;viere to get
+            exclusive discounts and promotions! Don't Miss Out.
+          </p>
+        </center>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+        <button type="submit">SUBSCRIBE</button>
+      </form>
+    </main>
 
     <footer>
       <p>&copy; 2023 Fleur de R&eacute;viere</p>
     </footer>
     <script src="/script.js"></script>
+    <script>
+      let slideIndex = 0;
+      showSlides();
+
+      function showSlides() {
+        let i;
+        const slides = document.querySelectorAll(".slides");
+        const dots = document.querySelectorAll(".dot");
+
+        for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+        }
+
+        slideIndex++;
+
+        if (slideIndex > slides.length) {
+          slideIndex = 1;
+        }
+
+        for (i = 0; i < dots.length; i++) {
+          dots[i].className = dots[i].className.replace(" active", "");
+        }
+
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+
+        setTimeout(showSlides, 2500);
+      }
+
+      function currentSlide(n) {
+        showSlides((slideIndex = n));
+
+        function addToBasket(productId) {
+          // Logic to add product to basket
+          console.log(`Product ${productId} added to basket`);
+        }
+      }
+    </script>
   </body>
 </html>
+}

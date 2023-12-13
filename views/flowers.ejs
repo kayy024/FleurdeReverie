@@ -46,16 +46,27 @@
                 alt="account"
                 width="30px"
               />
-              </a>
-              </div>
+            </a>
+          </div>
         </ul>
       </navbar>
     </header>
     <main>
-      <h1>All Flowers</h1>
-      <div id="productlist">
-        <!-- list of products will be dynamically added below here -->
+      <h2><center>All Flowers</center></h2>
+      <div class="allflowers">
+        <% products.forEach(product => { %>
+        <div class="flower">
+          <h3><%= product.name%></h3>
+          <img src="/images/<%= product.image %>" alt="<%= product.name %>" />
+          <p>Price: £<%= product.price.toFixed(2) %></p>
+          <button onclick="addToBasket('<%= product.id %>')">
+            Add to Basket
+          </button>
+          <a href="/flower/details/<%= product.id %>">
+            <button>View Details</button>
+          </a>
         </div>
+        <% }); %>
       </div>
     </main>
     <footer>
@@ -63,5 +74,28 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+      async function addToBasket(productId) {
+        try {
+          const response = await fetch(`/api/add-to-basket/${productId}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          if (!response.ok) {
+            throw new Error("Failed to add product to basket");
+          }
+
+          console.log("Product added to basket:", productId);
+        } catch (error) {
+          console.error("Error adding product to basket:", error.message);
+        }
+      }
+
+      function viewProductDetails(productId) {
+        console.log("Viewing details for product:", productId);
+      }
+    </script>
   </body>
 </html>

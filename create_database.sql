@@ -24,4 +24,5 @@ CREATE TABLE products (
     name VARCHAR(255),
     image VARCHAR(255),
     price DECIMAL(10, 2)
+    occasion VARCHAR(50)
 );

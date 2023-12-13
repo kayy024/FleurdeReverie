@@ -287,41 +287,166 @@ a:hover {
   color: #d66fb2;
   margin-bottom: 10px;
 }
+/* homepage */
+.slideshowbox {
+  max-width: 400px;
+  overflow: hidden;
+  margin: auto;
+  position: fixed;
+}
 
-/* flowers page */
-.productlist {
+.slides {
+  display: none;
+}
+
+.slides img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+.dot {
+  height: 8px;
+  width: 8px;
+  margin: 0 2px;
+  background-color: #d4d0c5;
+  border-radius: 20%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+.popularproducts {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
 }
 
 .product {
-  width: 25%;
-  border: 1px solid #d66fb2;
-  margin-bottom: 20px;
-  border-radius: 10px;
-  padding: 10px;
-  box-sizing: border-box;
+  margin: 15px;
+  text-align: center;
 }
 
 .product img {
+  height: 200px;
+  width: auto;
+}
+
+product-info {
+  margin-top: 10px;
+}
+
+.active {
+  background-color: #d66fb2;
+}
+
+h3 {
+  color: black;
+}
+
+.occasions {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.occasions p {
+  margin-bottom: 20px;
+}
+
+.occasions h3 {
+  margin-top: 30px;
+}
+
+.occasionsbutton {
+  margin-bottom: 30px;
+}
+
+form {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #d4d0c5;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 40px;
+  margin-bottom: 40px;
+  flex-direction: column;
+  align-items: center;
+}
+form p {
+  color: black;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input {
   width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #d66fb2;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Kalnia", serif;
+}
+
+button:hover {
+  background-color: #dbbad0;
+}
+
+/* flowers page */
+.allflowers {
+  display: grid;
+  gap: 20px;
+  margin: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  font-family: "kalnia", sans serif;
+}
+
+.flower {
+  border: 1px solid #d4d0c5;
+  padding: 20px;
+  text-align: center;
+}
+
+.flower img {
+  max-width: 100%;
   height: auto;
   margin-bottom: 10px;
-  border-radius: 10px;
+  margin-top: 10px;
 }
 
-.productname {
-  font-size: 15px;
-  margin: 0;
-  color: #d66fb2;
+.flower h3 {
+  color: black;
+  margin-bottom: 10px;
 }
 
-.pdescription {
-  margin: 10px 0;
-  color: #d4d0c5;
+.flower p {
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: black;
 }
 
-.price {
-  margin: 0;
+.flower a button {
+  background-color: #d1c5a3;
+}
+
+.flower a button:hover {
+  background-color: #d4d0c5;
+}
+/* occassions page  */
+.prodbyoccasion {
+  display: grid;
+  gap: 20px;
+  margin: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  font-family: "kalnia", sans serif;
 }

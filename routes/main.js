@@ -8,15 +8,16 @@ module.exports = function (app) {
   });
 
   app.get("/flowers", function (req, res) {
-    db.query("SELECT * FROM products", function (error, results) {
-      if (error) {
-        console.error("Error fetching products from the database:", error);
-        return res.status(500).send("Internal Server Error");
+    const query = "SELECT * FROM products";
+
+    db.query(query, (err, results) => {
+      if (err) {
+        console.error("Error executing SQL query:", err);
+        res.status(500).send("Internal Server Error");
+        return;
       }
 
-      const products = results;
-
-      res.render("flowers.ejs", { products });
+      res.render("flowers", { products: results });
     });
   });
 
