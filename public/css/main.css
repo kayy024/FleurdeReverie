@@ -241,6 +241,52 @@ a:hover {
   text-decoration: underline;
   color: #dbbad0;
 }
+/* account page */
+
+.account-main {
+  padding: 20px;
+}
+
+.account-section p1 {
+  color: black;
+}
+
+.account-section h3 {
+  color: black;
+  padding: 5px;
+}
+
+.account-section {
+  max-width: 600px;
+  max-height: 600px;
+  margin: auto;
+  padding: 15px;
+  border: 1px solid #d4d0c5;
+  border-radius: 5px;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.account-section button {
+  background-color: #d66fb2;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Kalnia", serif;
+  margin-top: 10px;
+}
+
+.account-section button:hover {
+  background-color: #dbbad0;
+}
+
+.account-section p {
+  color: #d66fb2;
+  margin-bottom: 10px;
+}
 
 /* flowers page */
 .productlist {

@@ -16,8 +16,7 @@ CREATE TABLE users (
   firstname VARCHAR(20) NOT NULL,
   surname VARCHAR(20) NOT NULL,
   email VARCHAR(100),
-  password VARCHAR(100),
-  PRIMARY KEY(username)
+  password VARCHAR(100)
 );
 
 CREATE TABLE products (
