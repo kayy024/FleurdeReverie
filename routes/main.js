@@ -8,34 +8,36 @@ module.exports = function (app) {
   });
 
   app.get("/flowers", function (req, res) {
-    const query = "SELECT * FROM products";
-
-    db.query(query, (err, results) => {
-      if (err) {
-        console.error("Error executing SQL query:", err);
-        res.status(500).send("Internal Server Error");
-        return;
+    db.query("SELECT * FROM products", function (error, results) {
+      if (error) {
+        console.error("Error fetching products from the database:", error);
+        return res.status(500).send("Internal Server Error");
       }
 
-      res.render("flowers", { products: results });
+      const products = results;
+
+      res.render("flowers.ejs", { products });
     });
   });
 
-  app.get("/occasions", function (req, res) {
-    const selectedOccasion = req.query.occasion || null;
+  app.get("/occasions", (req, res) => {
+    const selectedOccasion = req.query.occasion;
 
     if (!selectedOccasion) {
-      res.render("occasions.ejs", { selectedOccasion });
-      return;
+      return res.render("occasions", { selectedOccasion: null, products: [] });
     }
+
     const query = "SELECT * FROM products WHERE occasion = ?";
     db.query(query, [selectedOccasion], (err, results) => {
       if (err) {
         console.error("Error executing SQL query:", err);
-        res.status(500).send("Internal Server Error");
-        return;
+        return res.status(500).json({ error: "Internal Server Error" });
       }
-      res.render("occasions.ejs", { selectedOccasion, products: results });
+      if (req.xhr || req.headers.accept.indexOf("json") > -1) {
+        return res.json(results);
+      } else {
+        return res.render("occasions", { selectedOccasion, products: results });
+      }
     });
   });
 

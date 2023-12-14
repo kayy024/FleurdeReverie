@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="/css/main.css" />
-    <title>Fleur De R&eacute;verie</title>
+    <title><%= selectedOccasion %> - Fleur De R&eacute;verie</title>
   </head>
 
   <body>
@@ -20,10 +20,10 @@
           <li class="dropdown">
             <a href="#" class="dropbtn">Occasions</a>
             <div class="dropdown-content">
-              <a href="/occasions?occasion=birthday">Birthday</a>
-              <a href="/occasions?occasion=anniversary">Anniversary</a>
-              <a href="/occasions?occasion=wedding">Wedding</a>
-              <a href="/occasions?occasion=thankyou">Thank You</a>
+              <a href="/occasions?occasion=Birthday">Birthday</a>
+              <a href="/occasions?occasion=Anniversary">Anniversary</a>
+              <a href="/occasions?occasion=Wedding">Wedding</a>
+              <a href="/occasions?occasion=Thank You">Thank You</a>
             </div>
           </li>
           <!-- Basket Button -->
@@ -46,42 +46,36 @@
                 alt="account"
                 width="30px"
               />
-              </a>
-              </div>
-          </li>
+            </a>
+          </div>
         </ul>
       </navbar>
     </header>
     <main>
-      <h1>Occasions</h1>
-      <% if (selectedOccasion) { %>
-      <p>Selected Occasion: <%= selectedOccasion %></p>
-      <h2>Products for <%= selectedOccasion %> Occasion</h2>
-      <div class="prodbyoccasion">
-        <% products.forEach(product => { %>
-          <div class="flower">
-            <h3><%= product.name%></h3>
-            <img src="/images/<%= product.image %>" alt="<%= product.name %>" />
-            <p>Price: £<%= product.price.toFixed(2) %></p>
-            <button onclick="addToBasket('<%= product.id %>')">
-              Add to Basket
-            </button>
-            <a href="/flower/details/<%= product.id %>">
-              <button>View Details</button>
-            </a>
-          </div>
-        <% }); %>
+      <h2><center><%= selectedOccasion %> Bouquets</center></h2>
+      <div class="prodbyoccasion" id="productsContainer">
+        <% if (products && products.length > 0) { %> <%
+        products.forEach(function(product) { %>
+        <div class="flower">
+          <h3><%= product.name %></h3>
+          <img src="/images/<%= product.image %>" alt="<%= product.name %>" />
+          <p>Price: £<%= product.price.toFixed(2) %></p>
+          <button onclick="addToBasket('<%= product.id %>')">
+            Add to Basket
+          </button>
+          <a href="/flower/details/<%= product.id %>">
+            <button>View Details</button>
+          </a>
+        </div>
+        <% }); %> <% } else { %>
+        <p>No products available for this occasion.</p>
+        <% } %>
       </div>
-      <% } else { %>
-      <p>No occasion selected.</p>
-      <% } %>
     </main>
-
     <footer>
       <p>&copy; 2023 Fleur de R&eacute;viere</p>
     </footer>
 
-    <script src="script.js"></script>
     <script>
       async function addToBasket(productId) {
         try {
@@ -99,6 +93,10 @@
         } catch (error) {
           console.error("Error adding product to basket:", error.message);
         }
+      }
+
+      function viewProductDetails(productId) {
+        console.log("Viewing details for product:", productId);
       }
     </script>
   </body>
