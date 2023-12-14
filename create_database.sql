@@ -26,3 +26,11 @@ CREATE TABLE products (
     price DECIMAL(10, 2)
     occasion VARCHAR(50)
 );
+
+CREATE TABLE basket (
+  id SERIAL PRIMARY KEY,
+  user_email VARCHAR(255) REFERENCES users(email),
+  product_name VARCHAR(255) REFERENCES products(name),
+  quantity INT,
+  price DECIMAL(10, 2)
+);

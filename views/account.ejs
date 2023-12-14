@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="/css/main.css" />
-    <title>Fleur De R&eacute;verie</title>
+    <title>My Account - Fleur De R&eacute;verie</title>
   </head>
 
   <body>
@@ -24,6 +24,26 @@
               <a href="/occasions?occasion=thankyou">Thank You</a>
             </div>
           </li>
+          <li><a href="/about">About</a></li>
+          <!-- Search Form -->
+          <div class="search-icon">
+            <img
+              src="/images/search.png"
+              alt="Search"
+              id="searchIcon"
+              width="30px"
+            />
+            <form
+              action="/search"
+              method="GET"
+              id="searchForm"
+              class="search-form"
+            >
+              <input type="text" name="query" placeholder="Search..." />
+              <button type="submit">Search</button>
+            </form>
+          </div>
+
           <!-- Basket Button -->
           <div class="basket-content">
             <a href="/basket">
@@ -78,8 +98,19 @@
       <p>&copy; 2023 Fleur de R&eacute;viere</p>
     </footer>
 
-    <script src="/script.js"></script>
     <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const searchIcon = document.getElementById("searchIcon");
+        const searchForm = document.getElementById("searchForm");
+
+        searchIcon.addEventListener("click", function () {
+          searchForm.style.display =
+            searchForm.style.display === "none" ||
+            searchForm.style.display === ""
+              ? "block"
+              : "none";
+        });
+      });
       // Check if the user is logged in
       const isLoggedIn = localStorage.getItem("isLoggedIn");
 

@@ -38,6 +38,31 @@ navbar a:hover {
   color: #d66fb2;
 }
 
+.search-icon {
+  position: relative;
+  cursor: pointer;
+}
+
+#searchForm {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #d66fb2;
+  padding: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#searchForm input {
+  width: 150px;
+  padding: 5px;
+}
+
+#searchForm button {
+  padding: 5px 10px;
+}
+
 h2 {
   color: #d66fb2;
   font-size: 22px;
@@ -320,17 +345,23 @@ a:hover {
 }
 
 .product {
-  margin: 15px;
-  text-align: center;
+  width: 300px;
+  padding: 10px;
+  margin-left: 100px;
+  margin-right: 100px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .product img {
-  height: 200px;
-  width: auto;
+  width: 100%;
+  height: auto;
 }
 
-product-info {
-  margin-top: 10px;
+.product-info {
+  text-align: center;
 }
 
 .active {
@@ -448,5 +479,5 @@ button:hover {
   gap: 20px;
   margin: 30px;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  font-family: "kalnia", sans serif;
+  font-family: "kalnia", serif;
 }

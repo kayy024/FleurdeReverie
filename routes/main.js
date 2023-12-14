@@ -120,4 +120,51 @@ module.exports = function (app) {
   app.get("/subscription", function (req, res) {
     res.render("subscription", {});
   });
+
+  app.get("/about", function (req, res) {
+    res.render("about.ejs", {});
+  });
+
+  app.get("/search", function (req, res) {
+    let keyword = req.query.query;
+    let sqlquery = "SELECT * FROM products WHERE name LIKE ?";
+    let searchValue = "%" + keyword + "%";
+
+    db.query(sqlquery, searchValue, (err, result) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send("Error searching, please try again later");
+        return;
+      }
+
+      let newData = Object.assign({}, blogData, { posts: result });
+
+      // Check for specific keywords and redirect
+      if (keyword && keyword.includes("dream")) {
+        res.redirect("/flower/details/3");
+      } else if (keyword && keyword.includes("classic")) {
+        res.redirect("/flower/details/7");
+      } else if (keyword && keyword.includes("bouquet")) {
+        res.redirect("/flowers");
+      } else if (keyword && keyword.includes("anniversary")) {
+        res.redirect("/occasions?occasion=anniversary");
+      } else if (keyword && keyword.includes("birthday")) {
+        res.redirect("/occasions?occasion=birthday");
+      } else if (keyword && keyword.includes("wedding")) {
+        res.redirect("/occasions?occasion=wedding");
+      } else if (keyword && keyword.includes("thank you")) {
+        res.redirect("/occasions?occasion=thankyou");
+      } else if (keyword && keyword.includes("about")) {
+        res.redirect("about");
+      } else if (keyword && keyword.includes("basket")) {
+        res.redirect("basket");
+      } else if (keyword && keyword.includes("login")) {
+        res.redirect("login");
+      } else if (keyword && keyword.includes("register")) {
+        res.redirect("register");
+      } else {
+        res.render("search.ejs", newData);
+      }
+    });
+  });
 };

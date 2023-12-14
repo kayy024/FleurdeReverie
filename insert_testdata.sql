@@ -14,4 +14,4 @@ INSERT INTO products (name, image, price, occasion) VALUES
     ('Classic Elegant Bouquet', 'flower7.jpeg', 30.99, 'Birthday'),
     ('Valentines Perfect Bouquet', 'flower8.jpeg', 35.00, 'Anniversary'),
     ('Festival Florence Bouquet', 'flower9.jpeg', 28.00, 'Thank You'),
-    ('Beautiful Fleurs Bouquet', 'flower10.jpeg', 35.00, 'Birthday')
+    ('Beautiful Fleurs Bouquet', 'flower10.jpeg', 35.00, 'Birthday');
