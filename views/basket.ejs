@@ -71,7 +71,38 @@
     </header>
     <main>
       <h1>Basket</h1>
+      <div class="basket-items">
+        <% if (basketItems && basketItems.length > 0) { %> <% let total = 0; %>
+        <% basketItems.forEach(item => { %>
+        <div class="basket-item" data-product-id="<%= item.id %>">
+          <h3><%= item.product_name %></h3>
+          <label for="quantity">Quantity:</label>
+          <input
+            type="number"
+            id="quantity"
+            name="quantity"
+            value="<%= item.quantity %>"
+            onchange="updateQuantity('<%= item.id %>', this.value)"
+            min="1"
+          />
+          <button onclick="updateQuantity('<%= item.id %>')">Update</button>
+          <p class="price">Price: £<%= item.price.toFixed(2) %></p>
+          <button onclick="removeFromBasket('<%= item.id %>')">Remove</button>
+        </div>
+        <% total += item.price * item.quantity; %> <% }); %>
+        <div class="total">
+          <p>Total: £<%= total.toFixed(2) %></p>
+        </div>
+        <div class="checkoutButton">
+          <button onclick="continueToCheckout()">Continue to Checkout</button>
+          <button onclick="backToShop()">Back to Shop</button>
+        </div>
+        <% } else { %>
+        <p>Your basket is empty.</p>
+        <% } %>
+      </div>
     </main>
+
     <footer>
       <p>&copy; 2023 Fleur de R&eacute;viere</p>
     </footer>
@@ -88,7 +119,74 @@
               ? "block"
               : "none";
         });
+        updateTotal();
       });
+
+      function updateQuantity(productId, newQuantity) {
+        const basketItem = document.querySelector(
+          `.basket-item[data-product-id="${productId}"]`
+        );
+
+        if (basketItem) {
+          const quantityElement = basketItem.querySelector("#quantity");
+          quantityElement.value = newQuantity;
+
+          const priceElement = basketItem.querySelector(".price");
+          const price = parseFloat(priceElement.getAttribute("data-price"));
+          const total = price * newQuantity;
+
+          priceElement.textContent = `Price: £${total.toFixed(2)}`;
+          priceElement.setAttribute("data-total", total.toFixed(2));
+
+          updateTotal();
+        }
+      }
+
+      function removeFromBasket(productId) {
+        const basketItem = document.querySelector(
+          `.basket-item[data-product-id="${productId}"]`
+        );
+
+        if (basketItem) {
+          basketItem.remove();
+          updateTotal();
+        }
+      }
+
+      function updateTotal() {
+        const totalElement = document.querySelector(".total p");
+        const basketItems = document.querySelectorAll(".basket-item");
+
+        let total = 0;
+
+        basketItems.forEach((basketItem) => {
+          const priceElement = basketItem.querySelector(".price");
+          const totalAttribute = priceElement.getAttribute("data-total");
+          const quantityElement = basketItem.querySelector("#quantity");
+
+          const price = parseFloat(priceElement.getAttribute("data-price"));
+          const quantity = parseInt(quantityElement.value, 10);
+          const itemTotal = totalAttribute
+            ? parseFloat(totalAttribute)
+            : price * quantity;
+
+          total += itemTotal;
+        });
+
+        if (total === 0) {
+          totalElement.textContent = "Basket is empty.";
+        } else {
+          totalElement.textContent = `Total: £${total.toFixed(2)}`;
+        }
+      }
+
+      function continueToCheckout() {
+        window.location.href = "/checkout";
+      }
+
+      function backToShop() {
+        window.location.href = "/flowers";
+      }
     </script>
   </body>
 </html>

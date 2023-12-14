@@ -76,11 +76,15 @@
         products.forEach(function(product) { %>
         <div class="flower">
           <h3><%= product.name %></h3>
-          <img src="/images/<%= product.image %>" alt="<%= product.name %>" />
+          <img
+            src="/images/<%= product.image %>"
+            alt="<%= product.name %> Bouquet"
+          />
           <p>Price: £<%= product.price.toFixed(2) %></p>
           <button onclick="addToBasket('<%= product.id %>')">
             Add to Basket
           </button>
+
           <a href="/flower/details/<%= product.id %>">
             <button>View Details</button>
           </a>
@@ -116,18 +120,16 @@
               "Content-Type": "application/json",
             },
           });
+
           if (!response.ok) {
             throw new Error("Failed to add product to basket");
           }
 
-          console.log("Product added to basket:", productId);
+          window.location.href = "/basket";
         } catch (error) {
-          console.error("Error adding product to basket:", error.message);
+          console.error("Error adding product to basket:", error);
+          alert("Failed to add product to basket. Please try again.");
         }
-      }
-
-      function viewProductDetails(productId) {
-        console.log("Viewing details for product:", productId);
       }
     </script>
   </body>

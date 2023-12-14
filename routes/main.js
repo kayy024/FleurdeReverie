@@ -42,7 +42,19 @@ module.exports = function (app) {
   });
 
   app.get("/basket", function (req, res) {
-    res.render("basket.ejs", {});
+    const userEmail = "user@example.com";
+
+    const query = "SELECT * FROM basket WHERE user_email = ?";
+    db.query(query, [userEmail], (err, results) => {
+      if (err) {
+        console.error("Error fetching basket items from the database:", err);
+        return res.status(500).send("Internal Server Error");
+      }
+
+      const basketItems = results;
+
+      res.render("basket.ejs", { basketItems });
+    });
   });
 
   app.get("/login", function (req, res) {
@@ -166,5 +178,37 @@ module.exports = function (app) {
         res.render("search.ejs", newData);
       }
     });
+  });
+
+  app.post("/api/add-to-basket/:productId", (req, res) => {
+    const productId = req.params.productId;
+    const userEmail = "user@example.com";
+
+    db.query(
+      "SELECT * FROM products WHERE id = ?",
+      [productId],
+      (error, results) => {
+        if (error) {
+          console.error("Error fetching product details:", error);
+          return res.status(500).json({ error: "Internal Server Error" });
+        }
+
+        const product = results[0];
+
+        db.query(
+          "INSERT INTO basket (user_email, product_name, quantity, price) VALUES (?, ?, ?, ?)",
+          [userEmail, product.name, 1, product.price],
+          (error) => {
+            if (error) {
+              console.error("Error adding product to basket:", error);
+              return res.status(500).json({ error: "Internal Server Error" });
+            }
+
+            console.log("Product added to basket:", productId);
+            res.json({ success: true });
+          }
+        );
+      }
+    );
   });
 };
