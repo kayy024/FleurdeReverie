@@ -1,6 +1,9 @@
 const app = require("../index");
 const passport = require("passport");
 const bcrypt = require("bcrypt");
+const stripe = require("stripe")(
+  "sk_test_51ONTvDAUzJ4954VmKi6jkUlOcvPM29SlryjApDarq5oowNUgRiR0iiD0108AS7GN0j1BxEZQzhnX0FRy6CApM1KD00T5Vxlkh1"
+);
 
 module.exports = function (app) {
   app.get("/", function (req, res) {
@@ -210,5 +213,29 @@ module.exports = function (app) {
         );
       }
     );
+  });
+
+  app.get("/checkout", function (req, res) {
+    res.render("checkout.ejs", {});
+  });
+
+  app.post("/process-payment", async (req, res) => {
+    try {
+      const { token, amount } = req.body;
+
+      const charge = await stripe.charges.create({
+        amount: amount * 100,
+        currency: "usd",
+        source: token,
+        description: "Payment for Fleur De R&eacute;verie",
+      });
+
+      console.log(charge);
+
+      res.status(200).json({ message: "Payment processed successfully!" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Error processing payment." });
+    }
   });
 };

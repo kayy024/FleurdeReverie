@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <title>Fleur De R&eacute;verie</title>
+  </head>
+
+  <body>
+    <header>
+      <h1>Fleur De R&eacute;verie</h1>
+      <navbar>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/flowers">All Flowers</a></li>
+          <!-- Dropdown menu for occasions -->
+          <li class="dropdown">
+            <a href="#" class="dropbtn">Occasions</a>
+            <div class="dropdown-content">
+              <a href="/occasions?occasion=birthday">Birthday</a>
+              <a href="/occasions?occasion=anniversary">Anniversary</a>
+              <a href="/occasions?occasion=wedding">Wedding</a>
+              <a href="/occasions?occasion=thankyou">Thank You</a>
+            </div>
+          </li>
+          <li><a href="/about">About</a></li>
+          <!-- Search Form -->
+          <div class="search-icon">
+            <img
+              src="/images/search.png"
+              alt="Search"
+              id="searchIcon"
+              width="30px"
+            />
+            <form
+              action="/search"
+              method="GET"
+              id="searchForm"
+              class="search-form"
+            >
+              <input type="text" name="query" placeholder="Search..." />
+              <button type="submit">Search</button>
+            </form>
+          </div>
+
+          <!-- Basket Button -->
+          <div class="basket-content">
+            <a href="/basket">
+              <img
+                id="basketImage"
+                src="/images/basket.png"
+                alt="basket"
+                width="30px"
+              />
+            </a>
+          </div>
+          <!-- Account Button -->
+          <div class="account-content">
+            <a href="/account">
+              <img
+                id="accountImage"
+                src="/images/account.png"
+                alt="account"
+                width="30px"
+              />
+            </a>
+          </div>
+        </ul>
+      </navbar>
+    </header>
+
+    <main>
+      <h1>Checkout</h1>
+      <div class="checkout-container">
+        <div id="shipping-form" class="address-form">
+          <h2>Shipping Address</h2>
+          <form action="/process-shipping" method="post">
+            <label for="shipping-name">Full Name:</label>
+            <input
+              type="text"
+              id="shipping-name"
+              name="shipping-name"
+              required
+            />
+
+            <label for="shipping-address">Address:</label>
+            <input
+              type="text"
+              id="shipping-address"
+              name="shipping-address"
+              required
+            />
+
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" required />
+
+            <label for="postcode">Post Code:</label>
+            <input type="text" id="postcode" name="postcode" required />
+
+            <button type="button" onclick="showPaymentForm()">
+              Continue to Payment
+            </button>
+          </form>
+        </div>
+
+        <div id="payment-form" class="payment-form" style="display: none">
+          <h2>Payment Information</h2>
+          <form action="/process-payment" method="post">
+            <label for="card-number">Card Number:</label>
+            <input type="text" id="card-number" name="card-number" required />
+
+            <label for="expiry-date">Expiry Date:</label>
+            <input
+              type="text"
+              id="expiry-date"
+              name="expiry-date"
+              placeholder="MM/YYYY"
+              required
+            />
+
+            <label for="cvv">CVV:</label>
+            <input type="text" id="cvv" name="cvv" required />
+
+            <button id="checkout-button">Proceed to Payment</button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2023 Fleur de R&eacute;viere</p>
+    </footer>
+    <script>
+      function showPaymentForm() {
+        document.getElementById("shipping-form").style.display = "none";
+        document.getElementById("payment-form").style.display = "block";
+      }
+      function handlePaymentSubmission() {
+        window.location.href = "/";
+        return false;
+      }
+
+      const stripe = Stripe(
+        "pk_test_51ONTvDAUzJ4954VmSgM068MJMibEhGBkIc3wCSXwIDzV97UP8hnkiDX5Q0Hs0DdZShSpNXtRThJnH2hYY5P8O43p0025zzu9Vl"
+      );
+
+      const checkoutButton = document.getElementById("checkout-button");
+      checkoutButton.addEventListener("click", function () {
+        stripe
+          .redirectToCheckout({
+            items: [{ sku: "your_sku", quantity: 1 }],
+            successUrl: "/success",
+            cancelUrl: "/cancel",
+          })
+          .then(function (result) {
+            if (result.error) {
+              alert(result.error.message);
+            }
+          });
+      });
+    </script>
+  </body>
+</html>
