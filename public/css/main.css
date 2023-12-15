@@ -508,3 +508,25 @@ button:hover {
 input#quantity {
   width: 55px;
 }
+/* about page */
+main {
+  text-align: center;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  max-width: 600px;
+  width: 100%;
+  margin-bottom: 100px;
+  margin-top: 50px;
+  margin-left: 350px;
+}
+
+h2 {
+  color: #d66fb2;
+}
+
+p {
+  color: black;
+  margin-bottom: 15px;
+}
