@@ -63,6 +63,20 @@ module.exports = function (app) {
   app.get("/login", function (req, res) {
     res.render("login.ejs", {});
   });
+
+  const getUserByEmail = async (email) => {
+    return new Promise((resolve, reject) => {
+      const query = "SELECT * FROM users WHERE email = ?";
+      db.query(query, [email], (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results[0]);
+        }
+      });
+    });
+  };
+
   app.post("/login", async (req, res) => {
     try {
       const { email, password } = req.body;
@@ -91,50 +105,132 @@ module.exports = function (app) {
     }
   });
 
-  app.get("/register", function (req, res) {
-    res.render("register.ejs", {});
+  app.post("/registered", (req, res) => {
+    const plainPassword = req.body.password;
+
+    bcrypt.hash(plainPassword, saltRounds, (err, hashedPassword) => {
+      if (err) {
+        console.error("Error hashing password:", err);
+        return res.status(500).send("Internal Server Error");
+      }
+
+      const user = {
+        username: req.body.username,
+        first: req.body.first,
+        last: req.body.last,
+        email: req.body.email,
+        hashedPassword: hashedPassword,
+      };
+
+      const query = "INSERT INTO users SET ?";
+      db.query(query, user, (err, result) => {
+        if (err) {
+          console.error("Error storing user:", err);
+          return res.status(500).send("Internal Server Error");
+        }
+
+        let resultMsg =
+          "Hello " +
+          req.body.first +
+          " " +
+          req.body.last +
+          " you are now registered! We will send an email to you at " +
+          req.body.email;
+        resultMsg +=
+          " Your password is: " +
+          req.body.password +
+          " and your hashed password is: " +
+          hashedPassword;
+
+        res.send(resultMsg);
+      });
+    });
   });
 
-  app.post("/register", async (req, res) => {
-    try {
-      const { FirstName, LastName, email, password } = req.body;
+  app.get("/listusers", (req, res) => {
+    const query = "SELECT username, first, last, email FROM users";
+    db.query(query, (err, results) => {
+      if (err) {
+        console.error("Error fetching users:", err);
+        return res.status(500).send("Internal Server Error");
+      }
 
-      // Hash the password
-      const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-      await storeUser(FirstName, LastName, email, hashedPassword);
-
-      // Registration successful
-      req.session.user = { FirstName, LastName, email }; // You can set more user details if needed
-      res.redirect("/account");
-    } catch (error) {
-      console.error("Error during registration:", error);
-      res.status(500).send("Internal Server Error");
-    }
+      res.render("listusers.ejs", { users: results });
+    });
   });
 
-  // Logout route
-  app.get("/logout", (req, res) => {
-    req.session.destroy();
-    res.redirect("/");
+  app.get("/login", (req, res) => {
+    res.render("login.ejs");
   });
 
+  app.post("/loggedin", (req, res) => {
+    const username = req.body.username;
+
+    const query = "SELECT hashedPassword FROM users WHERE username = ?";
+    db.query(query, [username], (err, results) => {
+      if (err) {
+        console.error("Error fetching hashed password:", err);
+        return res.status(500).send("Internal Server Error");
+      }
+
+      if (results.length === 0) {
+        return res.send("User not found");
+      }
+
+      const hashedPassword = results[0].hashedPassword;
+
+      bcrypt.compare(req.body.password, hashedPassword, (err, result) => {
+        if (err) {
+          console.error("Error comparing passwords:", err);
+          return res.status(500).send("Internal Server Error");
+        }
+
+        if (result) {
+          res.send("Login successful!");
+        } else {
+          res.send("Incorrect password");
+        }
+      });
+    });
+  });
+
+  const storeUser = async (firstname, surname, email, hashedPassword) => {
+    return new Promise((resolve, reject) => {
+      const query =
+        "INSERT INTO users (firstname, surname, email, hashed_password) VALUES (?, ?, ?, ?)";
+      db.query(
+        query,
+        [firstname, surname, email, hashedPassword],
+        (err, results) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(results);
+          }
+        }
+      );
+    });
+  };
   app.get("/logout", (req, res) => {
     req.logout();
     res.redirect("/");
   });
 
   const isAuthenticated = (req, res, next) => {
-    if (req.isAuthenticated()) {
+    if (req.session && req.session.user) {
       return next();
+    } else {
+      res.redirect("/login");
     }
-    res.redirect("/login");
   };
 
   //route for account page with authentication
   app.get("/account", isAuthenticated, (req, res) => {
-    if (req.isAuthenticated()) {
-      const userEmail = req.user.email;
+    const user = req.session.user;
+
+    if (user) {
+      const userEmail = user.email;
+
       db.query(
         "SELECT firstname FROM users WHERE email = ?",
         [userEmail],
@@ -143,8 +239,8 @@ module.exports = function (app) {
             console.error("Error fetching user's information", error);
             return res.status(500).send("Internal Server Error");
           }
-          const userName = results[0].firstname;
 
+          const userName = results[0].firstname;
           res.render("account.ejs", { userName });
         }
       );
