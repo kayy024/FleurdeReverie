@@ -136,15 +136,6 @@ section {
   font-family: "Kalnia", serif;
 }
 
-.loginpage {
-  max-width: 400px;
-  width: 100%;
-  padding: 15px;
-  border: 1px solid #d4d0c5;
-  border-radius: 5px;
-  text-align: center;
-}
-
 form {
   flex-direction: column;
   display: flex;
@@ -200,31 +191,21 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 110vh;
-  font-family: "Kalnia", serif;
-}
-
-.signup-box {
-  max-width: 500px;
-  width: 100%;
-  padding: 15px;
-  border: 1px solid #d4d0c5;
-  border-radius: 5px;
-  text-align: center;
-  box-sizing: border-box;
-  margin: auto;
+  min-height: 100vh;
 }
 
 .signup-box p {
   color: black;
 }
+
+h4 {
+  color: #d66fb2;
+  text-align: center;
+}
+
 form {
   flex-direction: column;
   display: flex;
-}
-
-h2 {
-  color: #d66fb2;
 }
 
 label {
@@ -232,15 +213,6 @@ label {
   margin-bottom: 10px;
   text-align: left;
   color: #d66fb2;
-}
-
-input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #d4d0c5;
-  box-sizing: border-box;
-  border-radius: 2px;
 }
 
 button {
@@ -251,6 +223,7 @@ button {
   border-radius: 3px;
   cursor: pointer;
   font-family: "Kalnia", serif;
+  font-size: 15px;
 }
 
 button:hover {
@@ -277,18 +250,8 @@ a:hover {
   padding: 20px;
 }
 
-.account-section p1 {
-  color: black;
-}
-
-.account-section h3 {
-  color: black;
-  padding: 5px;
-}
-
 .account-section {
   max-width: 600px;
-  max-height: 600px;
   margin: auto;
   padding: 15px;
   border: 1px solid #d4d0c5;
@@ -298,18 +261,38 @@ a:hover {
   margin-bottom: 20px;
 }
 
-.account-section button {
-  background-color: #d66fb2;
-  color: white;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: "Kalnia", serif;
-  margin-top: 10px;
+.account-section h2 {
+  color: #d66fb2;
+  font-size: 22px;
+  margin-bottom: 20px;
 }
 
-.account-section button:hover {
+.account-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.account-section li {
+  margin-bottom: 15px;
+}
+
+.account-section h3 {
+  color: #d66fb2;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.account-section a {
+  display: inline-block;
+  background-color: #d66fb2;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.account-section a:hover {
   background-color: #dbbad0;
 }
 
@@ -317,6 +300,26 @@ a:hover {
   color: #d66fb2;
   margin-bottom: 10px;
 }
+
+#userWelcome {
+  font-weight: bold;
+}
+
+#logoutButton {
+  background-color: #d66fb2;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Kalnia", serif;
+  margin-top: 20px;
+}
+
+#logoutButton:hover {
+  background-color: #dbbad0;
+}
+
 /* homepage */
 .slideshowbox {
   max-width: 400px;

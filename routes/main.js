@@ -105,6 +105,10 @@ module.exports = function (app) {
     }
   });
 
+  app.get("/register", (req, res) => {
+    res.render("register");
+  });
+
   app.post("/registered", (req, res) => {
     const plainPassword = req.body.password;
 
@@ -212,8 +216,8 @@ module.exports = function (app) {
     });
   };
   app.get("/logout", (req, res) => {
-    req.logout();
-    res.redirect("/");
+    req.session.destroy();
+    res.redirect("/login");
   });
 
   const isAuthenticated = (req, res, next) => {

@@ -79,7 +79,7 @@
           <li><p>You haven't placed any orders yet.</p></li>
         </ul>
         <h3>Primary Addresses</h3>
-        <a href="/edit-addresses">EDIT ADDRESSES</a>
+        <li><p>You have no addresses saved.</p></li>
         <h3>Loyalty</h3>
         <p>
           Fleur de R&eacute;viere's Loyalty scheme for customers. Convert your
@@ -93,6 +93,9 @@
           LOG OUT
         </button>
       </div>
+      <button onclick="window.location.href='/logout'" id="logoutButton">
+        LOG OUT
+      </button>
     </main>
     <footer>
       <p>&copy; 2023 Fleur de R&eacute;viere</p>
@@ -117,7 +120,6 @@
       // Function to handle user logout
       function logout() {
         localStorage.removeItem("isLoggedIn");
-        // Add any additional logic you need for user logout
         updateUI();
       }
 
