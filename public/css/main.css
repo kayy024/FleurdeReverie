@@ -11,7 +11,7 @@ body {
 }
 
 header {
-  background-color: #d4d0c5;
+  background-color: black;
   padding: 10px;
   font-family: "arial";
   font-size: 16px;
@@ -118,7 +118,7 @@ h2 {
 }
 
 footer {
-  background-color: #d4d0c5;
+  background-color: black;
   text-align: center;
   padding: 10px;
   background-image: url("/images/loginbg.png");
