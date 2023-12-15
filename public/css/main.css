@@ -509,7 +509,7 @@ input#quantity {
   width: 55px;
 }
 /* about page */
-main {
+.aboutpage {
   text-align: center;
   padding: 20px;
   background-color: #fff;
