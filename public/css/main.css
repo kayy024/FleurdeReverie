@@ -5,6 +5,10 @@ body {
   margin: 0;
   padding: 0;
 }
+.logo img {
+  width: 300px;
+  height: auto;
+}
 
 header {
   background-color: #d4d0c5;
@@ -15,7 +19,7 @@ header {
   background-image: url("/images/loginbg.png");
   background-size: cover;
   background-position: center;
-  height: 20vh;
+  height: 30vh;
 }
 .navbar {
   display: flex;
