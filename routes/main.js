@@ -273,34 +273,42 @@ module.exports = function (app) {
         return;
       }
 
-      let newData = Object.assign({}, blogData, { posts: result });
-
       // Check for specific keywords and redirect
       if (keyword && keyword.includes("dream")) {
         res.redirect("/flower/details/3");
+        return;
       } else if (keyword && keyword.includes("classic")) {
         res.redirect("/flower/details/7");
+        return;
       } else if (keyword && keyword.includes("bouquet")) {
         res.redirect("/flowers");
+        return;
       } else if (keyword && keyword.includes("anniversary")) {
         res.redirect("/occasions?occasion=anniversary");
+        return;
       } else if (keyword && keyword.includes("birthday")) {
         res.redirect("/occasions?occasion=birthday");
+        return;
       } else if (keyword && keyword.includes("wedding")) {
         res.redirect("/occasions?occasion=wedding");
+        return;
       } else if (keyword && keyword.includes("thank you")) {
         res.redirect("/occasions?occasion=thankyou");
+        return;
       } else if (keyword && keyword.includes("about")) {
-        res.redirect("about");
+        res.redirect("/about");
+        return;
       } else if (keyword && keyword.includes("basket")) {
-        res.redirect("basket");
+        res.redirect("/basket");
+        return;
       } else if (keyword && keyword.includes("login")) {
-        res.redirect("login");
+        res.redirect("/login");
+        return;
       } else if (keyword && keyword.includes("register")) {
-        res.redirect("register");
-      } else {
-        res.render("search.ejs", newData);
+        res.redirect("/register");
+        return;
       }
+      res.render("search.ejs", { result });
     });
   });
 
