@@ -111,6 +111,11 @@ module.exports = function (app) {
 
   app.post("/registered", (req, res) => {
     const plainPassword = req.body.password;
+    const repeatPassword = req.body.passwordRepeat;
+
+    if (plainPassword !== repeatPassword) {
+      return res.status(400).send("Passwords do not match");
+    }
 
     bcrypt.hash(plainPassword, saltRounds, (err, hashedPassword) => {
       if (err) {
@@ -118,10 +123,11 @@ module.exports = function (app) {
         return res.status(500).send("Internal Server Error");
       }
 
+      const { first, last, email, password } = req.body;
       const user = {
-        firstname: req.body.first || "",
-        surname: req.body.last,
-        email: req.body.email,
+        firstname: first || "",
+        surname: last,
+        email,
         hashed_password: hashedPassword,
       };
 
@@ -237,7 +243,7 @@ module.exports = function (app) {
       db.query(
         "SELECT firstname FROM users WHERE email = ?",
         [userEmail],
-        function (error, results) {
+        (error, results) => {
           if (error) {
             console.error("Error fetching user's information", error);
             return res.status(500).send("Internal Server Error");
@@ -249,6 +255,13 @@ module.exports = function (app) {
       );
     } else {
       res.redirect("/login");
+    }
+
+    if (results.length > 0) {
+      const userName = results[0].firstname;
+      res.render("account.ejs", { userName });
+    } else {
+      res.status(404).send("User not found");
     }
   });
 
