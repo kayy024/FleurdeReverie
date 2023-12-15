@@ -1,5 +1,4 @@
 const app = require("../index");
-const passport = require("passport");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const stripe = require("stripe")(
@@ -64,14 +63,33 @@ module.exports = function (app) {
   app.get("/login", function (req, res) {
     res.render("login.ejs", {});
   });
-  app.post(
-    "/login",
-    passport.authenticate("local", {
-      successRedirect: "/account",
-      failureRedirect: "/login",
-      failureFlash: true,
-    })
-  );
+  app.post("/login", async (req, res) => {
+    try {
+      const { email, password } = req.body;
+
+      const user = await getUserByEmail(email);
+
+      if (!user) {
+        return res.status(401).send("Invalid email or password");
+      }
+
+      const passwordMatch = await bcrypt.compare(
+        password,
+        user.hashed_password
+      );
+
+      if (!passwordMatch) {
+        return res.status(401).send("Invalid email or password");
+      }
+
+      // Authentication successful
+      req.session.user = user;
+      res.redirect("/account");
+    } catch (error) {
+      console.error("Error during login:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  });
 
   app.get("/register", function (req, res) {
     res.render("register.ejs", {});
@@ -81,20 +99,24 @@ module.exports = function (app) {
     try {
       const { FirstName, LastName, email, password } = req.body;
 
+      // Hash the password
       const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-      const query =
-        "INSERT INTO users (firstname, surname, email, hashed_password) VALUES (?, ?, ?, ?)";
+      await storeUser(FirstName, LastName, email, hashedPassword);
 
-      await db.query(query, [FirstName, LastName, email, hashedPassword]);
-
-      req.flash("success", "Registration successful. You can now log in.");
-      res.redirect("/login");
+      // Registration successful
+      req.session.user = { FirstName, LastName, email }; // You can set more user details if needed
+      res.redirect("/account");
     } catch (error) {
-      console.error("Error registering user:", error);
-      req.flash("error", "Error registering user. Please try again.");
-      res.redirect("/register");
+      console.error("Error during registration:", error);
+      res.status(500).send("Internal Server Error");
     }
+  });
+
+  // Logout route
+  app.get("/logout", (req, res) => {
+    req.session.destroy();
+    res.redirect("/");
   });
 
   app.get("/logout", (req, res) => {
