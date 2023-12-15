@@ -367,4 +367,13 @@ module.exports = function (app) {
       res.status(500).json({ error: "Error processing payment." });
     }
   });
+  // route for fetching basket data
+  app.get("/api/basket", (req, res) => {
+    connection.query("SELECT * FROM basket", (error, results, fields) => {
+      if (error) {
+        throw error;
+      }
+      res.json(results);
+    });
+  });
 };
