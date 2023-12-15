@@ -217,14 +217,14 @@ module.exports = function (app) {
   };
   app.get("/logout", (req, res) => {
     req.session.destroy();
-    res.redirect("/login.ejs");
+    res.redirect("/login");
   });
 
   const isAuthenticated = (req, res, next) => {
     if (req.session && req.session.user) {
       return next();
     } else {
-      res.redirect("/login.ejs");
+      res.redirect("/login");
     }
   };
 
@@ -249,7 +249,7 @@ module.exports = function (app) {
         }
       );
     } else {
-      res.redirect("/login.ejs");
+      res.redirect("/login");
     }
   });
 
@@ -281,7 +281,7 @@ module.exports = function (app) {
         res.redirect("/flower/details/7");
         return;
       } else if (keyword && keyword.includes("bouquet")) {
-        res.redirect("/flowers.ejs");
+        res.redirect("/flowers");
         return;
       } else if (keyword && keyword.includes("anniversary")) {
         res.redirect("/occasions?occasion=anniversary");
@@ -296,16 +296,16 @@ module.exports = function (app) {
         res.redirect("/occasions?occasion=thankyou");
         return;
       } else if (keyword && keyword.includes("about")) {
-        res.redirect("/about.ejs");
+        res.redirect("/about");
         return;
       } else if (keyword && keyword.includes("basket")) {
-        res.redirect("/basket.ejs");
+        res.redirect("/basket");
         return;
       } else if (keyword && keyword.includes("login")) {
-        res.redirect("/login.ejs");
+        res.redirect("/login");
         return;
       } else if (keyword && keyword.includes("register")) {
-        res.redirect("/register.ejs");
+        res.redirect("/register");
         return;
       }
       res.render("search.ejs", { result });
