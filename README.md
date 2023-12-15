@@ -12,3 +12,9 @@ A flower shop web application for Databases and the Web.
 1. Open a new terminal
 2. Simply type the command `node index.js` in your terminal
 3. Open the localhost:8000 port on your chosen browser
+
+# To log in
+
+1. User credentials below to test
+   username: `user@test.com`
+   password: `Password123`

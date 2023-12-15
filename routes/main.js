@@ -119,11 +119,10 @@ module.exports = function (app) {
       }
 
       const user = {
-        username: req.body.username,
-        first: req.body.first,
-        last: req.body.last,
+        firstname: req.body.first || "",
+        surname: req.body.last,
         email: req.body.email,
-        hashedPassword: hashedPassword,
+        hashed_password: hashedPassword,
       };
 
       const query = "INSERT INTO users SET ?";
@@ -152,7 +151,7 @@ module.exports = function (app) {
   });
 
   app.get("/listusers", (req, res) => {
-    const query = "SELECT username, first, last, email FROM users";
+    const query = "SELECT first, last, email FROM users";
     db.query(query, (err, results) => {
       if (err) {
         console.error("Error fetching users:", err);
@@ -168,10 +167,10 @@ module.exports = function (app) {
   });
 
   app.post("/loggedin", (req, res) => {
-    const username = req.body.username;
+    const email = req.body.email;
 
-    const query = "SELECT hashedPassword FROM users WHERE username = ?";
-    db.query(query, [username], (err, results) => {
+    const query = "SELECT hashedPassword FROM users WHERE email = ?";
+    db.query(query, [email], (err, results) => {
       if (err) {
         console.error("Error fetching hashed password:", err);
         return res.status(500).send("Internal Server Error");

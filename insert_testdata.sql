@@ -1,8 +1,9 @@
 #select the database 
 USE fleurderev;
 
-INSERT INTO users (firstname, surname, email, password)
+INSERT INTO users (firstname, surname, email, hashed_password)
 VALUES
+    ('test', 'user' , 'test@user.com', '$2b$10$XJQLabqry7NyATaM7ysyt.rr5MW/mDKC9rt.ZHTSDp.daHJJuJLuu'),
 
 INSERT INTO products (name, image, price, occasion) VALUES
     ('Lavender Lilac Bouquet', 'flower1.jpg', 20.00, 'Thank You'),
@@ -15,3 +16,7 @@ INSERT INTO products (name, image, price, occasion) VALUES
     ('Valentines Perfect Bouquet', 'flower8.jpeg', 35.00, 'Anniversary'),
     ('Festival Florence Bouquet', 'flower9.jpeg', 28.00, 'Thank You'),
     ('Beautiful Fleurs Bouquet', 'flower10.jpeg', 35.00, 'Birthday');
+
+INSERT INTO basket (user_email, product_name, quantity, price)
+VALUES 
+    ('kraja003@gold.ac.uk', 'Lavender Lilac Bouquet', 2, 40.00);
