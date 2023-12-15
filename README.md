@@ -16,5 +16,5 @@ A flower shop web application for Databases and the Web.
 # To log in
 
 1. User credentials below to test
-   username: `user@test.com`
-   password: `Password123`
+   username: `kraja003@test.com`
+   password: `Hello1234`

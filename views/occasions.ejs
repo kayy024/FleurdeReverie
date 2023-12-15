@@ -78,18 +78,19 @@
         products.forEach(function(product) { %>
         <div class="flower">
           <h3><%= product.name %></h3>
-          <img
-            src="/images/<%= product.image %>"
-            alt="<%= product.name %> Bouquet"
-          />
-          <p>Price: £<%= product.price.toFixed(2) %></p>
-          <button onclick="addToBasket('<%= product.id %>')">
-            Add to Basket
-          </button>
-
-          <a href="/flower/details/<%= product.id %>">
-            <button>View Details</button>
-          </a>
+          <div class="flower-image-container">
+            <img
+              src="/images/<%= product.image %>"
+              alt="<%= product.name %> Bouquet"
+            />
+            <div class="flower-description">
+              <p><%= product.description %></p>
+              <p>Price: £<%= product.price.toFixed(2) %></p>
+              <button onclick="addToBasket('<%= product.id %>')">
+                Add to Basket
+              </button>
+            </div>
+          </div>
         </div>
         <% }); %> <% } else { %>
         <p>No products available for this occasion.</p>
