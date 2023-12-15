@@ -217,14 +217,14 @@ module.exports = function (app) {
   };
   app.get("/logout", (req, res) => {
     req.session.destroy();
-    res.redirect("/login");
+    res.redirect("/login.ejs");
   });
 
   const isAuthenticated = (req, res, next) => {
     if (req.session && req.session.user) {
       return next();
     } else {
-      res.redirect("/login");
+      res.redirect("/login.ejs");
     }
   };
 
@@ -281,7 +281,7 @@ module.exports = function (app) {
         res.redirect("/flower/details/7");
         return;
       } else if (keyword && keyword.includes("bouquet")) {
-        res.redirect("/flowers");
+        res.redirect("/flowers.ejs");
         return;
       } else if (keyword && keyword.includes("anniversary")) {
         res.redirect("/occasions?occasion=anniversary");
@@ -296,16 +296,16 @@ module.exports = function (app) {
         res.redirect("/occasions?occasion=thankyou");
         return;
       } else if (keyword && keyword.includes("about")) {
-        res.redirect("/about");
+        res.redirect("/about.ejs");
         return;
       } else if (keyword && keyword.includes("basket")) {
-        res.redirect("/basket");
+        res.redirect("/basket.ejs");
         return;
       } else if (keyword && keyword.includes("login")) {
-        res.redirect("/login");
+        res.redirect("/login.ejs");
         return;
       } else if (keyword && keyword.includes("register")) {
-        res.redirect("/register");
+        res.redirect("/register.ejs");
         return;
       }
       res.render("search.ejs", { result });
